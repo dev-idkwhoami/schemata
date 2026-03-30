@@ -9,5 +9,14 @@
   "author": {
     "name": "Maximilian Oswald",
     "email": "maxi.osw@outlook.com"
-  }
+  },
+  "info": {
+    "companyName": "Maximilian Oswald",
+    "productName": "Schemata",
+    "productVersion": "0.1.0",
+    "copyright": "Copyright 2026 Maximilian Oswald",
+    "comments": "Visual PostgreSQL Schema Designer"
+  },
+  "nsisType": "multiple",
+  "obfuscated": false
 }

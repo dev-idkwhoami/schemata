@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { EventsOn, EventsOff } from '../wailsjs/runtime/runtime';
-  import { GetState, SaveSQL } from '../wailsjs/go/main/App';
+  import { GetState, SaveSQL, OpenProjectDialog } from '../wailsjs/go/main/App';
   import Canvas from './Canvas.svelte';
   import Legend from './Legend.svelte';
   import McpSetup from './McpSetup.svelte';
@@ -107,6 +107,14 @@
     }
   }
 
+  async function handleOpenProject() {
+    try {
+      await OpenProjectDialog();
+    } catch (e) {
+      console.error('Open failed:', e);
+    }
+  }
+
   function handleResetZoom() {
     if (resetZoom) resetZoom();
   }
@@ -185,6 +193,11 @@
       </svg>
       Export SQL
     </button>
+    <button class="btn btn-icon" on:click={handleOpenProject} title="Load Project">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11.5" cy="12.5" r="2.5"/><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M13.3 14.3 15 16"/>
+      </svg>
+    </button>
   </div>
 
   <div class="toolbar-left">
@@ -257,6 +270,10 @@
 
   .btn:hover {
     background: rgba(51, 65, 85, 0.9);
+  }
+
+  .btn-icon {
+    padding: 6px;
   }
 
   .search-box {

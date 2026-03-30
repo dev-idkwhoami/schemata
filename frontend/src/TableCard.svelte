@@ -5,6 +5,7 @@
   export let node: LayoutNode;
   export let foreignKeys: ForeignKey[] = [];
   export let highlighted: boolean = false;
+  export let selected: boolean = false;
 
   const dispatch = createEventDispatcher();
 
@@ -60,8 +61,23 @@
 <g transform="translate({node.x}, {node.y})"
   on:mouseenter={() => dispatch('tablehover', { schema: node.table.schema, name: node.table.name })}
   on:mouseleave={() => dispatch('tablehoverend')}
+  on:click|stopPropagation={(e) => dispatch('tableclick', { event: e, schema: node.table.schema, name: node.table.name })}
   style="user-select: none; -webkit-user-select: none;"
 >
+  {#if selected}
+    <rect
+      x={-4}
+      y={-4}
+      width={node.width + 8}
+      height={node.height + 8}
+      rx={BORDER_RADIUS + 2}
+      ry={BORDER_RADIUS + 2}
+      fill="none"
+      stroke="#6366f1"
+      stroke-width="2"
+      opacity="0.8"
+    />
+  {/if}
   {#if highlighted}
     <rect
       x={-4}
